@@ -1,0 +1,216 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js">
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head><body class="markdown-body">
+<h1 id="e4babae5b7a5e699bae883bd-e79fa5e8af86e6a2b3e79086e4b88ee99da2e8af95e79c9fe9a298-1" data-line="0" class="code-line">人工智能-知识梳理与面试真题</h1>
+<h2 id="e7bc96e7a88be8afade8a880-sql--python-1" data-line="3" class="code-line">编程语言 SQL &amp; Python</h2>
+<hr>
+<p data-line="6" class="code-line"><strong>目录 (Table of Contents)</strong></p>
+<h3 id="sql-2" data-line="7" class="code-line">SQL</h3>
+<h3 id="python-2" data-line="8" class="code-line">Python</h3>
+<hr>
+<h1 id="sql-3" data-line="11" class="code-line">SQL</h1>
+<p data-line="13" class="code-line"><strong>SELECT</strong>: used to select data from a database</p>
+<pre><code data-line="14" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name;
+</div></code></pre>
+<p data-line="17" class="code-line"><strong>DISTINCT</strong>: filters away duplicate values and returns rows of specified column</p>
+<pre><code data-line="18" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> column_name;
+</div></code></pre>
+<p data-line="21" class="code-line"><strong>WHERE</strong>: used to filter records/rows</p>
+<pre><code data-line="22" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column1, column2 <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> condition;
+</div></code></pre>
+<p data-line="25" class="code-line"><strong>ORDER BY</strong>: used to sort the result-set in ascending or descending order</p>
+<pre><code data-line="26" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">column</span> <span class="hljs-keyword">DESC</span>/<span class="hljs-keyword">ASC</span>;
+</div></code></pre>
+<p data-line="29" class="code-line">Not all database systems support SELECT TOP. The MySQL equivalent is the LIMIT clause</p>
+<pre><code data-line="30" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column_names <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">LIMIT</span> <span class="hljs-keyword">offset</span>, <span class="hljs-keyword">count</span>;
+</div></code></pre>
+<p data-line="33" class="code-line"><strong>LIKE</strong>: operator used in a WHERE clause to search for a specific pattern in a column</p>
+<ul>
+<li data-line="34" class="code-line">% (percent sign) is a wildcard character that represents zero, one, or multiple characters</li>
+<li data-line="35" class="code-line">_ (underscore) is a wildcard character that represents a single character</li>
+</ul>
+<pre><code data-line="36" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column_names <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column_name <span class="hljs-keyword">LIKE</span> pattern;
+</div></code></pre>
+<p data-line="39" class="code-line"><strong>IN</strong>: operator that allows you to specify multiple values in a WHERE clause</p>
+<pre><code data-line="40" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column_names <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column_name <span class="hljs-keyword">IN</span> (value1, value2, …);
+</div></code></pre>
+<p data-line="43" class="code-line"><strong>BETWEEN</strong>: operator selects values within a given range inclusive</p>
+<pre><code data-line="44" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column_names <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> column_name <span class="hljs-keyword">BETWEEN</span> value1 <span class="hljs-keyword">AND</span> value2;
+</div></code></pre>
+<p data-line="47" class="code-line"><strong>UNION</strong>: set operator used to combine the result-set of two or more SELECT statements</p>
+<pre><code data-line="48" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> columns_names <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">UNION</span> <span class="hljs-keyword">SELECT</span> column_name <span class="hljs-keyword">FROM</span> table2;
+</div></code></pre>
+<p data-line="51" class="code-line"><strong>INTERSECT</strong>: set operator which is used to return the records that two SELECT statements have in common</p>
+<pre><code data-line="52" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> columns_names <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">INTERSECT</span> <span class="hljs-keyword">SELECT</span> column_name <span class="hljs-keyword">FROM</span> table2;
+</div></code></pre>
+<p data-line="55" class="code-line"><strong>EXCEPT</strong>: set operator used to return all the records in the first SELECT statement that are not found in the second SELECT statement</p>
+<pre><code data-line="56" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> columns_names <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">EXCEPT</span> <span class="hljs-keyword">SELECT</span> column_name <span class="hljs-keyword">FROM</span> table2;
+</div></code></pre>
+<p data-line="59" class="code-line"><strong>ANY|ALL</strong>: operator used to check subquery conditions used within a WHERE or HAVING clauses</p>
+<ul>
+<li data-line="61" class="code-line">The ANY operator returns true if any subquery values meet the condition</li>
+<li data-line="62" class="code-line">The ALL operator returns true if all subquery values meet the condition</li>
+</ul>
+<pre><code data-line="63" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> columns_names <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">WHERE</span> column_name <span class="hljs-keyword">operator</span> (<span class="hljs-keyword">ANY</span>|ALL) (<span class="hljs-keyword">SELECT</span> column_name <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> condition);
+</div></code></pre>
+<p data-line="66" class="code-line"><strong>GROUP BY</strong>: statement often used with aggregate functions (COUNT, MAX, MIN, SUM, AVG) to group the result-set by one or more columns</p>
+<pre><code data-line="67" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column_name1, <span class="hljs-keyword">COUNT</span>(column_name2) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> condition <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> column_name1 <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">COUNT</span>(column_name2) <span class="hljs-keyword">DESC</span>;
+</div></code></pre>
+<p data-line="70" class="code-line"><strong>HAVING</strong>: this clause was added to SQL because the WHERE keyword could not be used with aggregate functions</p>
+<pre><code data-line="71" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">COUNT</span>(column_name1), column_name2 <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> column_name2 <span class="hljs-keyword">HAVING</span> <span class="hljs-keyword">COUNT</span>(column_name1) &gt; <span class="hljs-number">5</span>;
+</div></code></pre>
+<p data-line="74" class="code-line"><strong>WITH</strong>: often used for retrieving hierarchical data or re-using temp result set several times in a query. Also referred to as &quot;Common Table Expression&quot;</p>
+<pre><code data-line="75" class="code-line language-SQL"><div>WITH RECURSIVE cte AS (
+  <span class="hljs-keyword">SELECT</span> c0.* <span class="hljs-keyword">FROM</span> categories <span class="hljs-keyword">AS</span> c0 <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span> # <span class="hljs-keyword">Starting</span> point
+  <span class="hljs-keyword">UNION</span> ALL
+  <span class="hljs-keyword">SELECT</span> c1.* <span class="hljs-keyword">FROM</span> categories <span class="hljs-keyword">AS</span> c1 <span class="hljs-keyword">JOIN</span> cte <span class="hljs-keyword">ON</span> c1.parent_category_id = cte.id
+)
+<span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> cte
+</div></code></pre>
+<p data-line="84" class="code-line"><strong>COUNT</strong>: returns the # of occurrences</p>
+<pre><code data-line="85" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">COUNT</span> (<span class="hljs-keyword">DISTINCT</span> column_name);
+</div></code></pre>
+<p data-line="88" class="code-line"><strong>MIN()</strong> and <strong>MAX()</strong>: returns the smallest/largest value of the selected column</p>
+<pre><code data-line="89" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MIN</span> (column_names) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> condition;
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">MAX</span> (column_names) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> condition;
+</div></code></pre>
+<p data-line="93" class="code-line"><strong>AVG()</strong>: returns the average value of a numeric column</p>
+<pre><code data-line="94" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">AVG</span> (column_name) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> condition;
+</div></code></pre>
+<p data-line="97" class="code-line"><strong>SUM()</strong>: returns the total sum of a numeric column</p>
+<pre><code data-line="98" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">SUM</span> (column_name) <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> condition;
+</div></code></pre>
+<p data-line="101" class="code-line"><strong>INNER JOIN</strong>: returns records that have matching value in both tables</p>
+<pre><code data-line="102" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column_names <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> table2 <span class="hljs-keyword">ON</span> table1.column_name=table2.column_name;
+</div></code></pre>
+<p data-line="105" class="code-line"><strong>LEFT (OUTER) JOIN</strong>: returns all records from the left table (table1), and the matched records from the right table (table2)</p>
+<pre><code data-line="106" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column_names <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> table2 <span class="hljs-keyword">ON</span> table1.column_name=table2.column_name;
+</div></code></pre>
+<p data-line="109" class="code-line"><strong>RIGHT (OUTER) JOIN</strong>: returns all records from the right table (table2), and the matched records from the left table (table1)</p>
+<pre><code data-line="110" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column_names <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">JOIN</span> table2 <span class="hljs-keyword">ON</span> table1.column_name=table2.column_name;
+</div></code></pre>
+<p data-line="113" class="code-line"><strong>FULL (OUTER) JOIN</strong>: returns all records when there is a match in either left or right table</p>
+<pre><code data-line="114" class="code-line language-SQL"><div><span class="hljs-keyword">SELECT</span> column_names <span class="hljs-keyword">FROM</span> table1 <span class="hljs-keyword">FULL</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> table2 <span class="hljs-keyword">ON</span> table1.column_name=table2.column_name;
+</div></code></pre>
+<hr>
+<h1 id="python-3" data-line="120" class="code-line">Python</h1>
+<p data-line="122" class="code-line"><strong>Data Types</strong>: String, Set, Number, List, Dictionary, Tuple</p>
+<p data-line="124" class="code-line"><strong>lambda 函数</strong>: filter, map, reduce</p>
+<ul>
+<li data-line="126" class="code-line"><strong>filter</strong>: 功能相当于过滤器。调用一个 bool_func 函数来迭代遍历每个 seq 中的元素；返回一个使 bool_seq 返回值为 true 的元素的序列。</li>
+</ul>
+<pre><code data-line="128" class="code-line language-Python"><div>a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+b = filter(<span class="hljs-keyword">lambda</span> x: x&gt;<span class="hljs-number">2</span>, a)
+<span class="hljs-keyword">print</span> (b)
+<span class="hljs-meta">&gt;&gt;&gt; </span>[<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>] 
+</div></code></pre>
+<ul>
+<li data-line="135" class="code-line"><strong>map</strong>:  对一个序列的每个项依次执行函数</li>
+</ul>
+<pre><code data-line="136" class="code-line language-Python"><div>a = map(<span class="hljs-keyword">lambda</span> x: x*<span class="hljs-number">2</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>])
+<span class="hljs-keyword">print</span> (list(a))
+<span class="hljs-meta">&gt;&gt;&gt; </span>[<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>]
+</div></code></pre>
+<ul>
+<li data-line="142" class="code-line"><strong>reduce</strong>: 对一个序列的每个项迭代调用函数</li>
+</ul>
+<pre><code data-line="143" class="code-line language-Python"><div>a = reduce(<span class="hljs-keyword">lambda</span> x, y: x+y, range(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>))
+<span class="hljs-keyword">print</span> (a)
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-number">10</span>
+</div></code></pre>
+<p data-line="149" class="code-line"><strong>copy() 和 deepcopy()的区别</strong>:</p>
+<pre><code data-line="150" class="code-line language-Python"><div><span class="hljs-keyword">import</span> copy
+a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-string">'x'</span>, <span class="hljs-string">'y'</span>]] <span class="hljs-comment">#原始对象</span>
+
+b = a  <span class="hljs-comment">#赋值，传对象的引用</span>
+c = copy.copy(a)  <span class="hljs-comment">#对象拷贝，浅拷贝</span>
+d = copy.deepcopy(a)  <span class="hljs-comment">#对象拷贝，深拷贝</span>
+a.append(<span class="hljs-number">4</span>)  <span class="hljs-comment">#修改对象a</span>
+a[<span class="hljs-number">3</span>].append(<span class="hljs-string">'z'</span>)  <span class="hljs-comment">#修改对象a中的['a', 'b']数组对象</span>
+
+<span class="hljs-keyword">print</span> (<span class="hljs-string">'a = '</span>, a)
+<span class="hljs-keyword">print</span> (<span class="hljs-string">'b = '</span>, b)
+<span class="hljs-keyword">print</span> (<span class="hljs-string">'c = '</span>, c)
+<span class="hljs-keyword">print</span> (<span class="hljs-string">'d = '</span>, d)
+<span class="hljs-meta">&gt;&gt;&gt; </span>a =  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-string">'x'</span>, <span class="hljs-string">'y'</span>, <span class="hljs-string">'z'</span>], <span class="hljs-number">4</span>]
+b =  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-string">'x'</span>, <span class="hljs-string">'y'</span>, <span class="hljs-string">'z'</span>], <span class="hljs-number">4</span>]
+c =  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-string">'x'</span>, <span class="hljs-string">'y'</span>, <span class="hljs-string">'z'</span>]]
+d =  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-string">'x'</span>, <span class="hljs-string">'y'</span>]]
+</div></code></pre>
+<p data-line="170" class="code-line"><strong>Numpy</strong>:</p>
+<pre><code data-line="171" class="code-line language-Python"><div><span class="hljs-comment"># 初始化</span>
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+a = np.zeros(<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>)
+b = np.ones(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>), dtype = int)
+c = np.random.rand(<span class="hljs-number">10</span>)
+d = np.random.randint(<span class="hljs-number">5</span>,<span class="hljs-number">10</span>,(<span class="hljs-number">10</span>,<span class="hljs-number">10</span>))
+<span class="hljs-comment"># 提取数据</span>
+e = d[<span class="hljs-number">4</span>:<span class="hljs-number">6</span>, <span class="hljs-number">3</span>:<span class="hljs-number">5</span>]
+<span class="hljs-comment"># 合并数据</span>
+f = np.random.randint(<span class="hljs-number">5</span>,<span class="hljs-number">15</span>,size=(<span class="hljs-number">5</span>,<span class="hljs-number">3</span>))
+g = np.random.randint(<span class="hljs-number">5</span>,<span class="hljs-number">15</span>,size=(<span class="hljs-number">5</span>,<span class="hljs-number">3</span>))
+h = np.hstack([f,g])
+i = np.vstack([f, g])
+j = np.concatenate([f, g], axis=<span class="hljs-number">1</span>)
+k = np.random.randint(<span class="hljs-number">5</span>,<span class="hljs-number">15</span>,size=(<span class="hljs-number">5</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>))
+l = np.random.randint(<span class="hljs-number">5</span>,<span class="hljs-number">15</span>,size=(<span class="hljs-number">5</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>))
+m = np.concatenate([k, l], axis=<span class="hljs-number">2</span>)
+<span class="hljs-comment"># 分割数据</span>
+p, q = np.hsplit(d,[<span class="hljs-number">5</span>])
+<span class="hljs-comment"># 数据维度</span>
+d.shape
+d.ndim
+d.size
+d.reshape(<span class="hljs-number">2</span>, <span class="hljs-number">50</span>)
+<span class="hljs-comment"># 统计操作</span>
+np.sum(d)
+np.sum(d, axis=<span class="hljs-number">1</span>)
+d.T
+d.mean(axis=<span class="hljs-number">1</span>)
+d.std(axis=<span class="hljs-number">1</span>)
+</div></code></pre>
+<p data-line="204" class="code-line"><strong>Pandas</strong>:</p>
+<pre><code data-line="205" class="code-line language-Python"><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-comment"># 读写数据</span>
+df1 = pd.read_csv(<span class="hljs-string">"file.csv"</span>)
+df2 = pd.read_excel(<span class="hljs-string">"file.xls"</span>)
+df1.to_csv(<span class="hljs-string">"file_copy.csv"</span>, sep=<span class="hljs-string">","</span>, index=<span class="hljs-keyword">False</span>)
+<span class="hljs-comment"># 数据处理</span>
+<span class="hljs-keyword">print</span> (df1.info())
+<span class="hljs-keyword">print</span> (df1.describe())
+<span class="hljs-keyword">print</span> (df1.columns)
+<span class="hljs-keyword">print</span> (df1.head(n))
+<span class="hljs-keyword">print</span> (df1.loc[<span class="hljs-string">'feature_name1'</span>])
+df3 = df1.dropna(axis=<span class="hljs-number">0</span>, how=<span class="hljs-string">'any'</span>)
+df4 = df1.replace(to_replace=<span class="hljs-keyword">None</span>, value=<span class="hljs-keyword">None</span>)
+df5 = df1.drop(<span class="hljs-string">'feature_name2'</span>, axis=<span class="hljs-number">1</span>)
+m = df1.as_matrix()
+df6 = df1[<span class="hljs-string">"feature_name3"</span>].apply(<span class="hljs-keyword">lambda</span> feature_name3: <span class="hljs-number">2</span> * feature_name3)
+df7 = df1.rename(columns = {df1.columns[<span class="hljs-number">2</span>]:<span class="hljs-string">'feature_name0'</span>}, inplace=<span class="hljs-keyword">True</span>)
+df8 = df1[[<span class="hljs-string">"feature_name1"</span>, <span class="hljs-string">"feature_name2"</span>]]
+df9 = df1.sort_values(ascending = <span class="hljs-keyword">False</span>)
+<span class="hljs-comment"># 数据统计</span>
+df1.sum(axis=<span class="hljs-number">0</span>/<span class="hljs-number">1</span>)
+df1.min(axis=<span class="hljs-number">0</span>/<span class="hljs-number">1</span>)
+df1.max(axis=<span class="hljs-number">0</span>/<span class="hljs-number">1</span>)
+df1.mean(axis=<span class="hljs-number">0</span>/<span class="hljs-number">1</span>)
+df1.median(axis=<span class="hljs-number">0</span>/<span class="hljs-number">1</span>)
+df1.corr()
+</div></code></pre>
+<hr>
+<h1 id="e4bd9ce4b89a-1" data-line="238" class="code-line">作业</h1>
+<ol>
+<li data-line="241" class="code-line">重复上述代码，提交结果</li>
+</ol>
+<hr>
+<h1 id="e7bb83e4b9a0-1" data-line="245" class="code-line">练习</h1>
+<p data-line="247" class="code-line"><a href="https://www.hackerrank.com/">https://www.hackerrank.com</a></p>
+
+</body></html>
