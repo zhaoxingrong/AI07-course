@@ -1,0 +1,229 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js">
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head><body class="markdown-body">
+<h1 id="e4babae5b7a5e699bae883bd-e79fa5e8af86e6a2b3e79086e4b88ee99da2e8af95e79c9fe9a298-1" data-line="0" class="code-line">人工智能-知识梳理与面试真题</h1>
+<h2 id="e79b91e79da3e5ada6e4b9a0e4b8ade79a84e695b0e68daee789b9e5be81e5a484e79086e4b88ee6a8a1e59e8be8af84e4bbb7-1" data-line="3" class="code-line">监督学习中的数据、特征处理与模型评价</h2>
+<hr>
+<p data-line="6" class="code-line"><strong>目录 (Table of Contents)</strong></p>
+<h3 id="e7bcbae5a4b1e580bce5a484e79086-2" data-line="7" class="code-line">缺失值处理</h3>
+<h3 id="e4b88de59d87e8a1a1e695b0e68daee5a484e79086-2" data-line="8" class="code-line">不均衡数据处理</h3>
+<h3 id="e789b9e5be81e5b7a5e7a88b-2" data-line="9" class="code-line">特征工程</h3>
+<h3 id="e6a8a1e59e8be9aa8ce8af81e4b88ee8af84e4bbb7-2" data-line="10" class="code-line">模型验证与评价</h3>
+<h3 id="e99da2e8af95e79c9fe9a298-2" data-line="11" class="code-line">面试真题</h3>
+<hr>
+<h1 id="e7bcbae5a4b1e580bce5a484e79086-3" data-line="15" class="code-line">缺失值处理</h1>
+<p data-line="18" class="code-line"><strong>缺失情况检查</strong>：为什么缺失? 缺失状态？</p>
+<ol>
+<li data-line="20" class="code-line">
+<p data-line="20" class="code-line">完全随机缺失 (MCAR)：变量 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 有缺失数据。如果 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 缺失数据的概率与 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 本身的值或在该数据组中任何其他变量的值都无关的话，那么 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 的数据就是完全随机缺失的。</p>
+</li>
+<li data-line="22" class="code-line">
+<p data-line="22" class="code-line">随机缺失 (MAR)：控制了其他变量后，<eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 缺失数据的概率与 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 值无关，则称 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 的数据为随机缺失。</p>
+</li>
+<li data-line="24" class="code-line">
+<p data-line="24" class="code-line">非随机缺失，依赖于缺失数据本身：<eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 缺失数据的概率与 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 值相关。</p>
+</li>
+<li data-line="26" class="code-line">
+<p data-line="26" class="code-line">非随机缺失，依赖于未观测到的预测值：<eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span></eq> 缺失数据不是随机的，依赖于某一未记录的信息，且该信息可预测缺失值。</p>
+</li>
+</ol>
+<p data-line="29" class="code-line"><strong>处理缺失数据的方法</strong>：</p>
+<ol>
+<li data-line="31" class="code-line">
+<p data-line="31" class="code-line">完全删除：删除含有缺失变量的数据。</p>
+<ul>
+<li data-line="33" class="code-line">优点：可用于任何类型的统计分；不需要特别的运算方法；如果任何因变量缺失数据的概率不取决于自变量的值，则使用成列删除的回归估计值将会是无偏误的。</li>
+<li data-line="34" class="code-line">缺点：误差通常较大；如果数据不是 MCAR 而只是 MAR，那么删除可能会产生有偏误的估计值。</li>
+</ul>
+</li>
+<li data-line="36" class="code-line">
+<p data-line="36" class="code-line">简单插补：以某些合理的猜测插补来替代缺失值，然后再接着按没有缺失数据的情况进行分析。插补的值，一般是零值，极大或极小值，平均值，条件均值，中位数。</p>
+<ul>
+<li data-line="38" class="code-line">优点：保证数据的完整性，模型的适应性</li>
+<li data-line="39" class="code-line">缺点：低估标准误、高估检验统计量</li>
+</ul>
+</li>
+<li data-line="41" class="code-line">
+<p data-line="41" class="code-line">多重插补：以两个或多个插补来替代缺失值，分析不同的插补值带来的数据结构的变化及误差，来选择最优的插补值。</p>
+<ul>
+<li data-line="43" class="code-line">优点：当数据为 MAR 时，正确使用多重插补会产生一致的、渐近有效的估计值；可以被任何一种模型使用。</li>
+<li data-line="44" class="code-line">缺点：操作繁琐易出错；每次使用多重插补时，都会产生不同的估计值。</li>
+</ul>
+</li>
+<li data-line="46" class="code-line">
+<p data-line="46" class="code-line">最大似然：利用最大期望算法来估测缺失值。</p>
+<ul>
+<li data-line="48" class="code-line">优点：适用于大样本。</li>
+<li data-line="49" class="code-line">缺点：只适用于线性模型。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="e4b88de59d87e8a1a1e695b0e68daee5a484e79086-3" data-line="55" class="code-line">不均衡数据处理</h1>
+<p data-line="58" class="code-line"><strong>不均衡数据</strong>：因变量在不同类别中的分布不均衡。</p>
+<p data-line="60" class="code-line"><strong>不均衡数据的影响</strong>：影响模型的准确性。</p>
+<ul>
+<li data-line="62" class="code-line">分类模型的表现会偏向于数据多的类别</li>
+<li data-line="63" class="code-line">在整体模型最小化误差的过程中，数据少的类别贡献非常的少</li>
+<li data-line="64" class="code-line">一些模型应用的前提条件是数据均衡分布</li>
+<li data-line="65" class="code-line">一些模型应用的前提条件是误差在不同类别中的权重是相同的</li>
+</ul>
+<p data-line="67" class="code-line"><strong>处理不均衡数据的方法</strong>：</p>
+<ol>
+<li data-line="69" class="code-line">
+<p data-line="69" class="code-line">欠采样：从数据多的类别中随机抽取一部分</p>
+<ul>
+<li data-line="70" class="code-line">优点：适用于数据量较大的情况；可以提高计算效率，减少计算时间和内存要求。</li>
+<li data-line="71" class="code-line">缺点：数据原有模式被破坏，模型准确率变差</li>
+</ul>
+</li>
+<li data-line="73" class="code-line">
+<p data-line="73" class="code-line">过采样：从数据少的类别中随机选取数据复制</p>
+<ul>
+<li data-line="74" class="code-line">优点：无信息缺失</li>
+<li data-line="75" class="code-line">缺点：容易导致过拟合</li>
+</ul>
+</li>
+<li data-line="77" class="code-line">
+<p data-line="77" class="code-line">SMOTE (Synthetic Minority Over-sampling Technique): 模拟数据少的类别中的数据形式，并生成数据填入其中。生成方法是：选取数据少的类别中的一点，找出它的最近点，算出差值，随机生成一个 0 和 1 之间的随机数，差值乘以随机数。</p>
+<ul>
+<li data-line="78" class="code-line">优点：无信息缺失；保持了模型原有模式；不易过拟合</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="e789b9e5be81e5b7a5e7a88b-3" data-line="83" class="code-line">特征工程</h1>
+<p data-line="86" class="code-line"><strong>数据的预处理方法</strong></p>
+<ol>
+<li data-line="88" class="code-line">
+<p data-line="88" class="code-line">数据标准化：</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mi>μ</mi></mrow><msup><mi>σ</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">x&#x27; = \frac{x - \mu}{\sigma^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.801892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.9463300000000001em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2603300000000002em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">μ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section></li>
+<li data-line="92" class="code-line">
+<p data-line="92" class="code-line">数据缩放：</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><msub><mi>x</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><mrow><msub><mi>x</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">x&#x27; = \frac{x - x_{min}}{x_{max} - x_{min}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.801892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.09633em;vertical-align:-0.8360000000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2603300000000002em;"><span style="top:-2.3139999999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8360000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section></li>
+<li data-line="96" class="code-line">
+<p data-line="96" class="code-line">数据归一化：</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup><mo>=</mo><mfrac><mi>x</mi><mrow><mi mathvariant="normal">∥</mi><mi>x</mi><msub><mi mathvariant="normal">∥</mi><mn>2</mn></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">x&#x27; = \frac{x}{\|x\|_2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.801892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.0435600000000003em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.10756em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">∥</span><span class="mord mathdefault">x</span><span class="mord"><span class="mord">∥</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section></li>
+<li data-line="100" class="code-line">
+<p data-line="100" class="code-line">数据二分化：</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mtext>  </mtext><mi>x</mi><mo>&gt;</mo><mi>η</mi><mo separator="true">;</mo><mtext>    </mtext><msup><mi>x</mi><mo mathvariant="normal">′</mo></msup><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mtext>  </mtext><mi>x</mi><mo>≤</mo><mi>η</mi></mrow><annotation encoding="application/x-tex">x&#x27; = 1, ~~x &gt; \eta; ~~~~x&#x27;=0, ~~x \leq \eta </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.801892em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace nobreak"> </span><span class="mspace nobreak"> </span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.996332em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">η</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace nobreak"> </span><span class="mspace nobreak"> </span><span class="mspace nobreak"> </span><span class="mspace nobreak"> </span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.801892em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace nobreak"> </span><span class="mspace nobreak"> </span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">η</span></span></span></span></span></eqn></section></li>
+<li data-line="104" class="code-line">
+<p data-line="104" class="code-line">独热编码处理分类型数据</p>
+</li>
+</ol>
+<p data-line="107" class="code-line"><strong>特征选取</strong></p>
+<ol>
+<li data-line="109" class="code-line">
+<p data-line="109" class="code-line">方差原则：去掉方差较低的特征。</p>
+</li>
+<li data-line="111" class="code-line">
+<p data-line="111" class="code-line">相关性原则：去掉完全相关的变量以防止共线性；选取得分较高的特征。</p>
+</li>
+<li data-line="113" class="code-line">
+<p data-line="113" class="code-line">递归式特征消除：使用一个基模型来进行多轮训练，每轮训练后，消除若干权值系数的特征，再基于新的特征集进行下一轮训练。</p>
+</li>
+</ol>
+<hr>
+<h1 id="e6a8a1e59e8be9aa8ce8af81e4b88ee8af84e4bbb7-3" data-line="118" class="code-line">模型验证与评价</h1>
+<p data-line="121" class="code-line"><strong>交叉验证</strong></p>
+<p data-line="123" class="code-line"><img src="https://www.researchgate.net/profile/Nikolaos_Chlis/publication/266617511/figure/fig9/AS:295705362092034@1447513060167/Holdout-validation-method.png" alt="" class="loading" id="image-hash-915bef77611800f9b267c1e719af8a52c83086da8a3bec99a8e68328d42773a4"></p>
+<ul>
+<li data-line="125" class="code-line">缺点：
+<ol>
+<li data-line="126" class="code-line">方差较高</li>
+<li data-line="127" class="code-line">在稀疏数据集上表现差</li>
+<li data-line="128" class="code-line">测试集数据越多，偏差越高</li>
+</ol>
+</li>
+</ul>
+<p data-line="130" class="code-line"><strong>K-fold 交叉验证</strong></p>
+<p data-line="132" class="code-line"><img src="https://www.researchgate.net/profile/Kiret_Dhindsa/publication/323969239/figure/fig10/AS:607404244873216@1521827865007/The-K-fold-cross-validation-scheme-133-Each-of-the-K-partitions-is-used-as-a-test.png" alt="" class="loading" id="image-hash-155bc7eccd8e4eab730bc8ae9dfe25a8c94955d99a03e8f12dd2ebfa01b5e88a"></p>
+<ul>
+<li data-line="134" class="code-line">缺点：
+<ol>
+<li data-line="135" class="code-line">在不均衡数据集上表现不好</li>
+</ol>
+</li>
+</ul>
+<p data-line="137" class="code-line"><strong>分层交叉验证</strong></p>
+<p data-line="139" class="code-line"><img src="https://s3-ap-south-1.amazonaws.com/av-blog-media/wp-content/uploads/2015/11/skfold.png" alt="" class="loading" id="image-hash-43e0044a33ff9427710b2a50b472c8b164cc96c835c0b0797c92e1fbb28272b6"></p>
+<p data-line="142" class="code-line"><strong>模型评价</strong></p>
+<table>
+<thead>
+<tr>
+<th>误差矩阵</th>
+<th>预测正值</th>
+<th>预测负值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真实正值</td>
+<td>TP</td>
+<td>FN</td>
+</tr>
+<tr>
+<td>真实负值</td>
+<td>FP</td>
+<td>TN</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li data-line="149" class="code-line">
+<p data-line="149" class="code-line">准确率：</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi><mo>+</mo><mi>F</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{TP+TN}{TP+FN+FP+TN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section></li>
+<li data-line="153" class="code-line">
+<p data-line="153" class="code-line">误差率：</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi>F</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi><mo>+</mo><mi>F</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{FP+FN}{TP+FN+FP+TN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section></li>
+<li data-line="157" class="code-line">
+<p data-line="157" class="code-line">精确率:</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{TP}{TP+FP}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section></li>
+<li data-line="161" class="code-line">
+<p data-line="161" class="code-line">召回率:</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{TP}{TP+FN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section></li>
+<li data-line="165" class="code-line">
+<p data-line="165" class="code-line">ROC 曲线 和 AUC 值：</p>
+</li>
+</ul>
+<p data-line="167" class="code-line"><img src="https://i.stack.imgur.com/pVHTM.png" alt="" class="loading" id="image-hash-b718a4d5aa76245621a277ddfa69c8c82233be5978b2efa6974528da1397a340"></p>
+<hr>
+<h1 id="e99da2e8af95e79c9fe9a298-3" data-line="173" class="code-line">面试真题</h1>
+<ol>
+<li data-line="176" class="code-line">
+<p data-line="176" class="code-line">建模的时候，遇到数据缺失怎么办？</p>
+</li>
+<li data-line="178" class="code-line">
+<p data-line="178" class="code-line">如果数据不均衡，可以直接建模吗？ 为什么？</p>
+</li>
+<li data-line="180" class="code-line">
+<p data-line="180" class="code-line">介绍一下 SMOTE 这个方法？他是用来做什么的？</p>
+</li>
+<li data-line="182" class="code-line">
+<p data-line="182" class="code-line">举例三种数据预处理的方法？</p>
+</li>
+<li data-line="184" class="code-line">
+<p data-line="184" class="code-line">为什么要进行数据预处理？</p>
+</li>
+<li data-line="186" class="code-line">
+<p data-line="186" class="code-line">举出三种特征工程常用的方法？</p>
+</li>
+<li data-line="188" class="code-line">
+<p data-line="188" class="code-line">准确率和精确率的区别？</p>
+</li>
+<li data-line="190" class="code-line">
+<p data-line="190" class="code-line">什么是 ROC 曲线？ 和 PR 曲线的区别是什么？</p>
+</li>
+<li data-line="192" class="code-line">
+<p data-line="192" class="code-line">什么是 AUC?</p>
+</li>
+</ol>
+<hr>
+<p data-line="197" class="code-line"><img src="https://i.stack.imgur.com/4MuJj.png" alt="" class="loading" id="image-hash-8dee29df9061013c36a37322527f89aeecb8628e173f1f02072d2c40390f8d06"></p>
+
+</body></html>
