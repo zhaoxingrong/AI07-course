@@ -1,0 +1,198 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js">
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head><body class="markdown-body">
+<h1 id="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86%E4%B8%8E%E9%9D%A2%E8%AF%95%E7%9C%9F%E9%A2%98" data-line="0" class="code-line">人工智能-知识梳理与面试真题</h1>
+<h2 id="%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B" data-line="3" class="code-line">监督学习中的集成学习模型</h2>
+<hr>
+<p data-line="6" class="code-line"><strong>目录 (Table of Contents)</strong></p>
+<h3 id="random-forest" data-line="7" class="code-line">Random Forest</h3>
+<h3 id="adaboost" data-line="8" class="code-line">AdaBoost</h3>
+<h3 id="gradient-boosting" data-line="9" class="code-line">Gradient Boosting</h3>
+<h3 id="xgboost" data-line="10" class="code-line">XGBoost</h3>
+<h3 id="lightgbm" data-line="11" class="code-line">LightGBM</h3>
+<h3 id="voting" data-line="12" class="code-line">Voting</h3>
+<h3 id="stacking" data-line="13" class="code-line">Stacking</h3>
+<h3 id="%E9%9D%A2%E8%AF%95%E7%9C%9F%E9%A2%98" data-line="14" class="code-line">面试真题</h3>
+<hr>
+<h1 id="random-forest-1" data-line="18" class="code-line">Random Forest</h1>
+<p data-line="21" class="code-line"><strong>装袋算法(Bagging)</strong>：一种提高分类模型的方法。(1) 从训练集 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span></eq> 中有放回的随机选取数据集 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span></eq> (<eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">∣</mi><mi>M</mi><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mi mathvariant="normal">∣</mi><mi>S</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">|M| &lt; |S|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord">∣</span></span></span></span></eq>) ；(2) 生成一个分类模 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span></eq>; (3) 重复以上步骤 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span></eq> 次，得到 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span></eq> 个分类模型 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>C</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>C</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">C_1, C_2, ..., C_m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq>; (4) 对于分类问题，每一个模型投票决定，少数服从多数原则；（5）对于回归问题，取平均值。</p>
+<ul>
+<li data-line="23" class="code-line">
+<p data-line="23" class="code-line">优点：通过减少方差来提高预测结果。</p>
+</li>
+<li data-line="25" class="code-line">
+<p data-line="25" class="code-line">缺点: 失去了模型的简单性。</p>
+</li>
+</ul>
+<p data-line="27" class="code-line"><strong>Random Forest</strong>：是一种基于树模型的装袋算法改进型。假定数据集中有 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span></eq> 个特征和 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span></eq> 个观测值。 每一个树有放回的随机抽出 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span></eq> 个观测值，<eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span></eq> (<eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>=</mo><msqrt><mi>M</mi></msqrt></mrow><annotation encoding="application/x-tex">m = \sqrt{M}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.11333499999999996em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9266650000000001em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span><span style="top:-2.886665em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,
+-10,-9.5,-14c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54c44.2,-33.3,65.8,
+-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10s173,378,173,378c0.7,0,
+35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429c69,-144,104.5,-217.7,106.5,
+-221c5.3,-9.3,12,-14,20,-14H400000v40H845.2724s-225.272,467,-225.272,467
+s-235,486,-235,486c-2.7,4.7,-9,7,-19,7c-6,0,-10,-1,-12,-3s-194,-422,-194,-422
+s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.11333499999999996em;"><span></span></span></span></span></span></span></span></span></eq> 或者 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>=</mo><mi>log</mi><mo>⁡</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">m = \log{M}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span></span></eq>) 个特征。把每一个单一决策树的结果综合起来。</p>
+<ul>
+<li data-line="29" class="code-line">优点：
+<ol>
+<li data-line="30" class="code-line">减少了模型方差，提高了预测准确性。</li>
+<li data-line="31" class="code-line">不需要给树做剪枝。</li>
+<li data-line="32" class="code-line">在大规模数据集，尤其是特征较多的情况下，依然可以保持高效率。</li>
+<li data-line="33" class="code-line">不用做特征选择，并且可以给出特征变量重要性的排序估计。</li>
+</ol>
+</li>
+</ul>
+<p data-line="35" class="code-line"><strong>随机森林和装袋算法的区别</strong></p>
+<table>
+<thead>
+<tr>
+<th>随机森林</th>
+<th style="text-align:right">装袋算法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单一模型是决策树</td>
+<td style="text-align:right">可任意单一模型</td>
+</tr>
+<tr>
+<td>每一个决策树有放回的随机抽取数据，数据总数不变</td>
+<td style="text-align:right">每一个单一模型有放回的随机抽取数据， 数据总数减少</td>
+</tr>
+<tr>
+<td>每一个决策树选取部分特征</td>
+<td style="text-align:right">每一个单一模型使用全部特征</td>
+</tr>
+<tr>
+<td>模型结果更好</td>
+<td style="text-align:right">模型结果有所提高</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="adaboost-1" data-line="47" class="code-line">AdaBoost</h1>
+<p data-line="50" class="code-line"><strong>AdaBoost</strong>: 在业界使用中获得成功的第一种提升模型。 弱学习单一模型是决策树。 在每一步的时候依次加入一个弱学习，集中学习上一步难以得到明显分类的数据集中。</p>
+<hr>
+<h1 id="gradient-boosting-decision-tree" data-line="55" class="code-line">Gradient Boosting Decision Tree</h1>
+<p data-line="58" class="code-line"><strong>Gradient Boosting</strong>: 使用梯度下降法来实现的提升模型。一共有3个关键。</p>
+<p data-line="60" class="code-line"><strong>优化函数</strong>：可自己定义，但必须是可导的。如果是回归问题，优化函数一般是 squared error；分类问题，优化函数一般是 log loss.</p>
+<p data-line="62" class="code-line"><strong>弱学习模型</strong>：一般选取决策树。</p>
+<p data-line="64" class="code-line"><strong>加性模型</strong>：每次添加一个弱学习模型，同时已生成的弱学习模型保持不变。使用梯度下降法去优化每次添加的弱学习模型。</p>
+<ul>
+<li data-line="66" class="code-line">
+<p data-line="66" class="code-line">优点：</p>
+<ol>
+<li data-line="67" class="code-line">通过减少模型误差来提高准确性。</li>
+<li data-line="68" class="code-line">快速训练，计算效率高。</li>
+</ol>
+</li>
+<li data-line="70" class="code-line">
+<p data-line="70" class="code-line">缺点：</p>
+<ol>
+<li data-line="71" class="code-line">容易过拟合。</li>
+<li data-line="72" class="code-line">难以并行计算。</li>
+</ol>
+</li>
+<li data-line="74" class="code-line">
+<p data-line="74" class="code-line">减少过拟合：</p>
+<ol>
+<li data-line="75" class="code-line">控制决策树的数量，树的深度，节点的个数，每次分割节点的条件。</li>
+<li data-line="76" class="code-line">给叶子的权重加正则化。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h1 id="xgboost-1" data-line="81" class="code-line">XGBoost</h1>
+<p data-line="84" class="code-line"><strong>XGBoost</strong>: 基于决策树的提升算法。</p>
+<p data-line="86" class="code-line"><strong>目标函数</strong>：</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi>b</mi><mi>j</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>l</mi><mo>(</mo><msub><mi>y</mi><mi>i</mi></msub><mo separator="true">,</mo><mover accent="true"><msub><mi>y</mi><mi>i</mi></msub><mo>^</mo></mover><mo>)</mo><mo>+</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><mi mathvariant="normal">Ω</mi><mo>(</mo><msub><mi>f</mi><mi>k</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">Obj = \sum_{i=1}^n l(y_i, \hat{y_i}) + \sum_{k=1}^K \Omega(f_k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault">b</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;">^</span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:3.1304490000000005em;vertical-align:-1.302113em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.8478869999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.302113em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">Ω</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></eqn></section><ul>
+<li data-line="90" class="code-line">
+<p data-line="90" class="code-line">优点：</p>
+<ol>
+<li data-line="91" class="code-line">计算效率高，使用了二阶导数。</li>
+<li data-line="92" class="code-line">减少了过拟合，有正则化。</li>
+<li data-line="93" class="code-line">列特征抽样减少过拟合，同时有利于并行计算。</li>
+</ol>
+</li>
+<li data-line="95" class="code-line">
+<p data-line="95" class="code-line">可以改进的地方：</p>
+<ol>
+<li data-line="96" class="code-line">每次迭代时，都要遍历整个数据集。</li>
+<li data-line="97" class="code-line">内存占用较大。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h1 id="lightgbm-1" data-line="102" class="code-line">LightGBM</h1>
+<p data-line="105" class="code-line"><strong>LightGBM</strong>: 基于决策树的提升算法。是基于 XGBoost 的一种改进。</p>
+<table>
+<thead>
+<tr>
+<th>XGBoost</th>
+<th style="text-align:right">LightGBM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pre-sorted方法</td>
+<td style="text-align:right">histogram 算法</td>
+</tr>
+<tr>
+<td>level-wise 生长策略</td>
+<td style="text-align:right">leaf-wise 生长策略</td>
+</tr>
+</tbody>
+</table>
+<p data-line="112" class="code-line"><strong>Histogram 算法</strong>：(1) 把连续的浮点特征值离散化成 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span></eq> 个整数，构造一个宽度为 <eq><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span></eq> 的直方图。(2) 遍历数据时，根据离散化后的值作为索引在直方图中累积统计量。(3) 一次遍历后，直方图累积了需要的统计量，然后根据直方图的离散值，遍历寻找最优的分割点。</p>
+<p data-line="114" class="code-line"><strong>level-wise 和 leaf-wise</strong></p>
+<p data-line="116" class="code-line"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiE60_GrBuPA_Q_EoTRyejgnVsc0cTAUSAi_D3W0H3PVmb29Nm" alt="" class="loading" id="image-hash-3d8b31f0a6d57cd5fc5725e3d4958517a5197e720929a98e2b5dfe2209e57604"></p>
+<hr>
+<h1 id="voting-1" data-line="121" class="code-line">Voting</h1>
+<p data-line="124" class="code-line"><strong>Voting</strong>: 使用多种不同的模型作为学习模型，然后综合每种不同模型的结果得到结论。对于分类问题，一般是每种模型投票决定；对于回归问题，一般是取平均值。</p>
+<hr>
+<h1 id="stacking-1" data-line="130" class="code-line">Stacking</h1>
+<p data-line="133" class="code-line"><strong>Stacking</strong>:</p>
+<p data-line="135" class="code-line"><img src="http://manish-m.com/wp-content/uploads/2012/11/StackingCropped.png" alt="" class="loading" id="image-hash-39d4ab7a4756b2e0c6947931183596e26417a8b9376ae88c6a334355fb6b8504"></p>
+<p data-line="137" class="code-line"><strong>Bagging, Boosting, Stacking 比较</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Bagging</th>
+<th>Boosting</th>
+<th>Stacking</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据集分割</td>
+<td>随机生成子集</td>
+<td>随机生成全集</td>
+<td>全集</td>
+</tr>
+<tr>
+<td>效果</td>
+<td>减少模型方差</td>
+<td>减少模型误差</td>
+<td>都有可能</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="e99da2e8af95e79c9fe9a298-1" data-line="149" class="code-line">面试真题</h1>
+<ol>
+<li data-line="152" class="code-line">XGBoost 原理是什么？</li>
+<li data-line="153" class="code-line">XGBoost 是怎么减少过拟合的？</li>
+<li data-line="154" class="code-line">boosting 和 bagging 区别？</li>
+<li data-line="155" class="code-line">XGBoost 和 LightGBM 的区别？</li>
+<li data-line="156" class="code-line">Random Forest 和 GBDT 的区别？ 如果剪枝？</li>
+<li data-line="157" class="code-line">XGBoost 优点？</li>
+<li data-line="158" class="code-line">decision tree 和 random forest 是什么关系？</li>
+<li data-line="159" class="code-line">LightGBM 如何防止过拟合？</li>
+</ol>
+
+</body></html>
